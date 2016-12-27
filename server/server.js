@@ -15,7 +15,7 @@ var server = http.createServer(function(req, res) {
 	// stream.on('end', function() {
 	// 	res.end()
 	// })
-	stream.pipe(res)
+	stream.pipe(res)  //以上监听data and end 可以简化为这一句，pipe 管道
 })
 
 server.listen(3000)
