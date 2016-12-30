@@ -32,11 +32,35 @@ function upload(req, res) {
 	}
 
 	var form = new formidable.IncomingForm()
-	form.parse(req)
+
+	form.on('field', function(field, value) {
+		console.log(field)
+		console.log(value)
+	});
+
+	form.on('file', function(name, file) {
+		console.log(name)
+		console.log(file)
+	});
+
+	form.on('end', function() {
+		res.end('upload complete')
+	});
+
+	form.parse(req, function(err, fields, files) {
+		console.log(fields)
+		console.log(files)
+		res.end('Upload complete!')
+	})
+
+	form.on('progress', function(bytesReceived, bytesExpected) {
+		var percent = Math.floor(bytesReceived / bytesExpected * 100)
+		console.log(percent)
+	});
 }
 
 function isFormData(req) {
-	var type = req.headers['content-type'] || ''
+	var type = req.headers['content-type'] || '';
 	return 0 === type.indexOf('multipart/form-data')
-	// 判断是否以multipart/form-data为开头
+	// 如果以multipart/form-data为开头，返回true
 }
