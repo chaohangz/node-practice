@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "supervisor ./bin/www"  // 改用supervisor启动，更改之后不需要重启即可看到效果
   },
   "dependencies": {
     "body-parser": "~1.15.2",
