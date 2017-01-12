@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "supervisor ./bin/www"  // 改用supervisor启动，更改之后不需要重启即可看到效果
+    "start": "node ./bin/www"  // 改用supervisor启动，更改之后不需要重启即可看到效果
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -12,6 +12,8 @@
     "ejs": "~2.5.2",
     "express": "~4.14.0",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "mongodb": ">= 0.9.9",
+    "connect-mongo": ">= 0.1.7"
   }
 }

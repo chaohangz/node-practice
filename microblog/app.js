@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var MongoStore = require('connect-mongo');
+var settings = require('../settings');
 
 var routes = require('./routes/index');
 
@@ -46,6 +48,24 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+
+// mongodb
+app.configure(function() {
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'ejs');
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(express.cookieParser()); // Cookie解析中间件
+	app.use(express.session({        //提供会话支持
+		secret: settings.cookieSecret,
+		store: new MongoStore({
+			db: settings.db
+		})
+	}))
+	app.use(express.router(routes));
+	app.use(express.static(__dirname + '/public'));
 });
 
 
